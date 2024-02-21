@@ -1,23 +1,17 @@
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-const AuthForm = ({PageName}) => {
+import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+
+const AuthForm = ({ formType }) => {
     return (
         <div>
-             <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
-                            <DialogDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
-                            </DialogDescription>
-                        </DialogHeader>
-                    </DialogContent>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
+                    <DialogDescription>
+                        {formType === 'signIn' ? 'Enter your credentials to sign in.' : 'Create a new account.'}
+                    </DialogDescription>
+                </DialogHeader>
+                {/* Additional form fields based on formType */}
+            </DialogContent>
         </div>
     );
 };
