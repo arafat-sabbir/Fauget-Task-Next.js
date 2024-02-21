@@ -19,9 +19,9 @@ const TopSection = () => {
             <h1>Welcome,claudia Alvies</h1>
             <div className="flex gap-4">
                 <Dialog>
-                    <DialogTrigger><button onClick={handleSignInClick} className="px-14 py-2 rounded-full bg-[#060606] text-white">Sign In</button></DialogTrigger>
-                    <DialogTrigger><button onClick={handleSignUpClick} className="px-14 py-2 rounded-full bg-[#202020]/90 text-white">Sign Up</button></DialogTrigger>
-                    <AuthForm formType={formType} />
+                    <DialogTrigger><div onClick={handleSignInClick} className="btn bg-[#060606] ">Sign In</div></DialogTrigger>
+                    <DialogTrigger><div onClick={handleSignUpClick} className="btn bg-[#202020]/90 ">Sign Up</div></DialogTrigger>
+                    <AuthForm formType={formType} setFormType={setFormType} />
                 </Dialog>
             </div>
         </div>
