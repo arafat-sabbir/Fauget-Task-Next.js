@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import TopSection from "@/components/TopSection/TopSection";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <div className="flex flex-col w-full  px-10">
             <TopSection />
             <div className="flex-grow">{children}</div>
+            <Toaster />
           </div>
         </div>
       </body>
