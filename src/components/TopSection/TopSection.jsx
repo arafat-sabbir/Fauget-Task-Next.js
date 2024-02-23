@@ -1,7 +1,7 @@
 "use client"
 import { useState } from 'react';
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import AuthForm from "@/lib/AuthForm/AuthForm";
+import AuthForm from "@/components/AuthForm/AuthForm";
 
 const TopSection = () => {
     const [formType, setFormType] = useState(null);

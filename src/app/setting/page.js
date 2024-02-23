@@ -1,10 +1,13 @@
+"use client"
+import { useSession } from "next-auth/react";
 import React from "react";
 
 const Setting = () => {
+  const {data:session} = useSession()
   return (
     <div>
-      <p>Name : Arafat Sabbir</p>
-      <p> Email : arafatshabbir8@gmail.com</p>
+      <p>Name : {session?.user?.username}</p>
+      <p> Email : {session?.user?.email}</p>
     </div>
   );
 };

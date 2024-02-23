@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import TopSection from "@/components/TopSection/TopSection";
 import { Toaster } from "react-hot-toast";
+import AuthProvider from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex">
+       <AuthProvider>
+       <div className="flex">
           <Navbar />
           <div className="flex flex-col w-full  px-10">
             <TopSection />
@@ -23,6 +25,7 @@ export default function RootLayout({ children }) {
             <Toaster />
           </div>
         </div>
+       </AuthProvider>
       </body>
     </html>
   );

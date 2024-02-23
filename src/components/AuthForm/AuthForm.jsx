@@ -1,29 +1,86 @@
 import { DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const AuthForm = ({ formType, setFormType }) => {
-    const [userInfo, setUserInfo] = useState({ email: "", password: "" })
-    const handleSignIn = (e) => {
+    const router = useRouter()
+    const [pending, setPending] = useState(false)
+    const [error, setError] = useState("")
+
+    const handleSignIn = async (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value;
         const password = form.password.value;
-        setUserInfo({ ...userInfo, email: email, password: password });
-        form.reset()
+        try {
+            setPending(true);
+            const res = await signIn("credentials", {
+                email,
+                password,
+                redirect: false,
+            });
 
+            if (res.error) {
+                setError("Invalid Credentials!");
+                setPending(false);
+                return;
+            }
+
+            router.replace("/");
+        } catch (error) {
+            setPending(false);
+            setError("Something went wrong!");
+        }
+
+        const userInfo = { email, password }
+        form.reset()
     }
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault()
         const form = e.target
         const email = form.email.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
+        const userName = form.username.value;
+        const userInfo = { userName, email, password }
+        console.log(JSON.stringify(userInfo));
         if (password !== confirmPassword) {
             return toast.error("Password Doesn't Match")
         }
-        setUserInfo({ ...userInfo, email: email, password: password });
-        form.reset()
+        try {
+            setPending(true);
+            console.log("userinfo", userInfo)
+            const res = await fetch("api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userInfo)
+            });
+            if (res.ok) {
+                setPending(false);
+                console.log("User Registered");
+                form.reset()
+            } else {
+                setPending(false);
+                console.log("Something Went Wrong");
+                const errorData = await res.json();
+                toast.error(errorData.message || "Something went wrong from this");
+            }
+        } catch (error) {
+            setPending(false);
+            console.error("Error:", error); // Log the error for debugging purposes
+
+            let errorMessage = "An Error Occurred";
+            if (error instanceof Error && error.message) {
+                errorMessage = error.message; // Use the error message if available
+            }
+            toast.error(errorMessage);
+        }
+
+
     }
     return (
         <div>
@@ -42,6 +99,8 @@ const AuthForm = ({ formType, setFormType }) => {
                                 <p className="text-gray-200 ml-1">Do not Have A Account? Create an Account  <span className="cursor-pointer text-black underline font-semibold text-lg" onClick={() => setFormType("signUp")}>SignUp</span></p>
                             </form>
                             : (<form onSubmit={handleSignUp} className="flex flex-col px-10 bg-[#3B3B3B]">
+                                <label className="text-white ml-[5px]" htmlFor="email text-gray-200">UserName: </label>
+                                <input required className="input-field" type="text" name="username" />
                                 <label className="text-white ml-[5px]" htmlFor="email text-gray-200">Email: </label>
                                 <input required className="input-field" type="email" name="email" />
                                 <label className="text-white ml-[5px]" htmlFor="password">Password:</label>
