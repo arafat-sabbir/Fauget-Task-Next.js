@@ -23,7 +23,6 @@ const AuthForm = ({ formType, setFormType }) => {
             return toast.error("Password Doesn't Match")
         }
         setUserInfo({ ...userInfo, email: email, password: password });
-        console.log(email, password, confirmPassword);
         form.reset()
     }
     return (
