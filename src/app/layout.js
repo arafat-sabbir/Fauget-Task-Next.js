@@ -16,16 +16,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-       <AuthProvider>
-       <div className="flex">
-          <Navbar />
-          <div className="flex flex-col w-full  px-10">
-            <TopSection />
-            <div className="flex-grow">{children}</div>
-            <Toaster />
+        <AuthProvider>
+          <div className="flex bg-[#191919]">
+            <Navbar />
+            <div className="flex flex-col w-full  px-10">
+              <TopSection />
+              <div className="flex-grow">{children}</div>
+              <Toaster />
+            </div>
           </div>
-        </div>
-       </AuthProvider>
+        </AuthProvider>
       </body>
     </html>
   );

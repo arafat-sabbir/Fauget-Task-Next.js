@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const AuthForm = ({ formType, setFormType }) => {
     const router = useRouter()
     const [pending, setPending] = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(true);
     const [error, setError] = useState("")
 
     const handleSignIn = async (e) => {
@@ -23,12 +24,13 @@ const AuthForm = ({ formType, setFormType }) => {
             });
 
             if (res.error) {
-                setError("Invalid Credentials!");
+                toast.error("Invalid Credentials!");
                 setPending(false);
                 return;
             }
-
             router.replace("/");
+            toast.success("Sign In Successful")
+            setDialogOpen(false)
         } catch (error) {
             setPending(false);
             setError("Something went wrong!");
@@ -43,8 +45,9 @@ const AuthForm = ({ formType, setFormType }) => {
         const email = form.email.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
-        const userName = form.username.value;
-        const userInfo = { userName, email, password }
+        const username = form.username.value;
+        console.log(username);
+        const userInfo = { username, email, password }
         console.log(JSON.stringify(userInfo));
         if (password !== confirmPassword) {
             return toast.error("Password Doesn't Match")
@@ -61,7 +64,8 @@ const AuthForm = ({ formType, setFormType }) => {
             });
             if (res.ok) {
                 setPending(false);
-                console.log("User Registered");
+                toast.success("Registration Successful");
+                setDialogOpen(false)
                 form.reset()
             } else {
                 setPending(false);
@@ -84,7 +88,7 @@ const AuthForm = ({ formType, setFormType }) => {
     }
     return (
         <div>
-            <DialogContent className="bg-[#3B3B3B]">
+            {dialogOpen && <DialogContent className="bg-[#3B3B3B]">
                 <DialogHeader>
                     <h1 className="text-center font-semibold text-white text-3xl my-6">Fauget</h1>
                     <DialogTitle className="text-center font-semibold text-white text-3xl">{formType === 'signIn' ? 'Sign In' : 'Sign Up'}</DialogTitle>
@@ -113,7 +117,7 @@ const AuthForm = ({ formType, setFormType }) => {
                     </DialogDescription>
                 </DialogHeader>
                 {/* Additional form fields based on formType */}
-            </DialogContent>
+            </DialogContent>}
         </div>
     );
 };

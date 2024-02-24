@@ -7,7 +7,8 @@ export async function POST(request) {
   try {
     await connectDB();
     const { username, email, password } = await request.json();
-    const exists = await User.findOne({ $or: [{ username }, { email }] });
+    console.log(username,email,password);
+    const exists = await User.findOne({ email });
 
     if (exists) {
       return NextResponse.json(
