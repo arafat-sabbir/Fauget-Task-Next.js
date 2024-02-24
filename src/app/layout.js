@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <div className="flex bg-[#191919]">
             <Navbar />
-            <div className="flex flex-col w-full  px-10">
+            <div className="flex  ml-[250px] h-full min-h-screen flex-col w-full  px-10">
               <TopSection />
               <div className="flex-grow">{children}</div>
               <Toaster />

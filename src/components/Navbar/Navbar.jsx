@@ -13,7 +13,7 @@ const Navbar = () => {
     const Navlinks = [{ path: "/", title: "Home", icon: <MdHome /> }, { path: "/podcast", title: "Podcast", icon: <PiMusicNoteSimpleBold /> }, { path: "/setting", title: "Settings", icon: <IoSettingsOutline /> }]
 
     return (
-        <div className="bg-[#3B3B3B] w-[250px]  h-screen pl-8 py-10">
+        <div className="bg-[#3B3B3B] w-[250px] fixed h-screen pl-8 py-10">
             <SectionTitle name={"Menu"} />
             <h1 className="text-white text-[30px]">Fauget</h1>
             <div className="flex flex-col text-white text-xl font-semibold space-y-4">

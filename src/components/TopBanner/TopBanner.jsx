@@ -1,3 +1,4 @@
+"use client"
 import { useSession } from "next-auth/react";
 import { Niconne } from "next/font/google";
 import Image from 'next/image';
